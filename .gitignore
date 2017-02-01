@@ -1,0 +1,12 @@
+# Config
+config.json
+
+# Dependencies
+node_modules
+
+# Client
+client
+start-client.js
+
+# Logs
+*.log

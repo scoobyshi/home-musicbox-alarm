@@ -1,0 +1,22 @@
+{
+  "name": "home-wakeup-alarm",
+  "version": "0.0.1",
+  "description": "Whole Home Alarm to wake the Family",
+  "main": "server.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-client.js"
+  },
+  "author": "Scott Justason",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mopidy": "^0.5.0",
+    "request": "^2.79.0",
+    "wink-js": "git+https://github.com/scoobyshi/wink-js.git"
+  },
+  "devDependencies": {
+    "concurrently": "^3.1.0"
+  }
+}
