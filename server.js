@@ -20,10 +20,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.post('/api/next', (req,res) => {
+app.post('/api/next', (req, res, next) => {
   console.log("Recieved API Request for Next Song");
 
   mopidy.playback.next().then( () => {
+    // Mopidy doesn't actually return a result yet
+    console.log("200 - Next Song Success");
     res.status(200).json({ "message": "success" });
   })
   .catch( () => {
@@ -32,7 +34,7 @@ app.post('/api/next', (req,res) => {
   .done();
 });
 
-app.post('/api/load/:playlist_uri', (req,res) => {
+app.post('/api/load/:playlist_uri', (req, res, next) => {
   var playlist_uri = req.params.playlist_uri;
   console.log("Recieved API Request to Load and Play Tracks for ID: " + playlist_uri);
 
@@ -53,7 +55,7 @@ app.post('/api/load/:playlist_uri', (req,res) => {
   .done();
 });
 
-app.get('/api/playlists', (req,res) => {
+app.get('/api/playlists', (req, res, next) => {
   console.log("Recieved API Request for Available Playlists");
 
   mopidy.playlists.getPlaylists().then( (playlists) => {
@@ -69,17 +71,20 @@ app.get('/api/playlists', (req,res) => {
   .done();
 });
 
-app.get('/api/track', (req,res) => {
+app.get('/api/track', (req, res, next) => {
   console.log("Recieved API Request for Current Track");
 
   mopidy.playback.getCurrentTrack().then( (track) => {
     if (track) {
+      console.log("200 - Success: " + JSON.stringify(track));
       res.json(track);
     } else {
+      console.log("400 - No Track");
       res.status(400).json({ "error": "no track available" });
     }
   })
   .catch( () => {
+    console.log("400 - Unknown");
     res.status(400).json({ "error": "unknown" });
   })
   .done();
