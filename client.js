@@ -7,24 +7,6 @@ ws.on('open', () => {
   ws.send('We are Connected');
   setTimeout(() => ws.send('Just checking you are still there'),5000);
 
-/* Route no longer available 
-  setTimeout(() => {
-    var options = {
-      method: 'GET',
-      uri: uri + '/music/next',
-      json: true
-    }
-
-    rp(options)
-    .then( (response) => {
-      console.log("Recieved response");
-      console.log(response.message);
-    })
-    .catch( (error) => {
-      console.log("Errors");
-    });
-  },15000); */
-
   setTimeout(() => {
     var options = {
       method: 'POST',
@@ -46,6 +28,16 @@ ws.on('open', () => {
 // Incoming Messages type 'message'
 ws.on('message', (data,flags) => {
   console.log(data);
+  console.log(JSON.parse(data));
+
+  // Should test if this is JSON
+  let result = JSON.parse(data);
+
+  if (result.album) {
+    console.log("There is a New Song: " + result.name); 
+  } else if (result.new_state) {
+    console.log("State Changed: " + result.new_state);
+  }
 });
 
 ws.on('close', () => {
