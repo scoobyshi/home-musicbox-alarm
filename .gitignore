@@ -1,6 +1,9 @@
 # Config
 config.json
 
+# DB
+db/*.sqlite3
+
 # Dependencies
 node_modules
 
