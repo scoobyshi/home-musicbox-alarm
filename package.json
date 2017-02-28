@@ -3,11 +3,6 @@
   "version": "0.0.1",
   "description": "Whole Home Alarm to wake the Family",
   "main": "server.js",
-  "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "node server.js",
-    "client": "node start-client.js"
-  },
   "author": "Scott Justason",
   "license": "MIT",
   "dependencies": {
