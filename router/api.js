@@ -4,7 +4,7 @@ const routes = require('express').Router();
 routes.post('/control/:action', (req, res) => {
   let action = req.params.action;
   let playcontrol = req.player;
- 
+
   console.log("Requested Playback API Action:", action);
 
   playcontrol.playback(action, res);
@@ -27,6 +27,36 @@ routes.post('/load', (req, res) => {
   console.log("Requested Loading API for Playlist ID:", playlistid);
 
   playcontrol.load(playlistid, res);
+});
+
+routes.get('/schedule', (req, res) => {
+  // Expecting playing, stopping
+  let playcontrol = req.player;
+
+  console.log("Requested Alarm Schedule.");
+
+  playcontrol.showSchedule(res);
+});
+
+// Update schedule
+routes.post('/schedule', (req, res) => {
+  let playlistid = req.query.playlistid;
+  let cron = req.query.cron;
+  let playcontrol = req.player;
+
+  console.log("Requested Update to Schedule with Playlist ID:", playlistid);
+
+  playcontrol.updateSchedule(playlistid, cron, res);
+});
+
+// Get current playback state
+routes.get('/state', (req, res) => {
+  // Expecting playing, stopping
+  let playcontrol = req.player;
+
+  console.log("Requested Playback State.");
+
+  playcontrol.state(res);
 });
 
 // Get current track
