@@ -19,6 +19,29 @@ routes.get('/playlists', (req, res) => {
   playcontrol.playlists(res);
 });
 
+// Retrieve all music loaded to the current queue
+routes.get('/tracklist', (req, res) => {
+  let playcontrol = req.player;
+
+  console.log("Requested All Songs in the current Queue/Tracklist");
+
+  playcontrol.getTracklist(res);
+});
+
+// Retrieve meta information on all music loaded to the current queue
+routes.get('/tracklist/:meta', (req, res) => {
+  let meta = req.params.meta;
+  let playcontrol = req.player;
+
+  console.log("Requested a Count of All Songs in the current Queue/Tracklist");
+
+  if (meta === 'count') {
+    playcontrol.getTracklistCount(res);
+  } else if (meta === 'shuffle') {
+    playcontrol.shuffle(res);
+  }
+});
+
 // Load playlist
 routes.post('/load', (req, res) => {
   let playlistid = req.query.playlistid;
