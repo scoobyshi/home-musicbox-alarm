@@ -37,7 +37,16 @@ routes.get('/tracklist/:meta', (req, res) => {
 
   if (meta === 'count') {
     playcontrol.getTracklistCount(res);
-  } else if (meta === 'shuffle') {
+  }
+});
+
+routes.post('/tracklist/:action', (req, res) => {
+  let action = req.params.action;
+  let playcontrol = req.player;
+
+  console.log("Requested a shuffle of the current Queue/Tracklist");
+
+  if (action === 'shuffle') {
     playcontrol.shuffle(res);
   }
 });
