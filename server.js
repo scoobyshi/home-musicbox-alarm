@@ -13,14 +13,18 @@ var Music = require('./lib/musicService');
 var player = new Music.musicService(server, '/music/ws');
 
 // Setup Prometheus monitoring
-var prom = require('prom-client');
-var collectDefaultMetrics = prom.collectDefaultMetrics;
-collectDefaultMetrics(5000);
+// var prom = require('prom-client');
+const promBundle = require('express-prom-bundle');
+const metricsMiddleware = promBundle({ includeMethod: true, includePath: true });
+app.use(metricsMiddleware);
+
+// var collectDefaultMetrics = prom.collectDefaultMetrics;
+// collectDefaultMetrics(5000);
 
 // Export Prometheus metrics from /metrics endpoint
-app.get('/metrics', function(req, res) {
-  res.end(prom.register.metrics());
-});
+// app.get('/metrics', function(req, res) {
+//  res.end(prom.register.metrics());
+// });
 
 // Temporarily enable CORS for Dev only
 app.use(function(req, res, next) {

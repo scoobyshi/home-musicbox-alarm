@@ -1,0 +1,8 @@
+version: '2'
+services:
+  home-musicbox-alarm:
+    build: .
+    container_name: home-musicbox-alarm
+    network_mode: host
+    ports:
+      - 5001:5001
